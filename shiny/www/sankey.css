@@ -1,0 +1,15 @@
+text {
+    font-size: 20px;
+}
+
+iframe {
+    border-style: none;
+    height: 95vh;
+    width: 100%;
+}
+
+body .container-fluid .row .col-sm-4 {
+    max-height: 95vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
