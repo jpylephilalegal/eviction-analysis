@@ -31,52 +31,52 @@ This repository demonstrates how you can set up a system for analyzing eviction 
     LogLevel warn
 
     CustomLog ${APACHE_LOG_DIR}/access.log combined
-</VirtualHost>
-<IfModule mod_ssl.c>
-<VirtualHost *:443>
-    ServerName eviction.philalegal.org
-    ServerAdmin jpyle@philalegal.org
-    SSLEngine on
-    SSLCertificateFile /etc/ssl/alphassl/wildcard.crt
-    SSLCertificateKeyFile /etc/ssl/alphassl/wildcard.pem
-    SSLProxyEngine on
-    DocumentRoot /var/www/html
-    <Proxy *>
-      Allow from localhost
-    </Proxy>
-    RewriteEngine on
-    RewriteCond %{HTTP:Upgrade} =websocket
-    RewriteRule /shiny/(.*) ws://localhost:3838/$1 [P,L]
-    RewriteCond %{HTTP:Upgrade} !=websocket
-    RewriteRule /shiny/(.*) http://localhost:3838/$1 [P,L]
-    ProxyPass /shiny/ http://localhost:3838/
-    ProxyPassReverse /shiny/ http://localhost:3838/
-    ProxyPass /shiny-admin/ http://localhost:4151/
-    ProxyPassReverse /shiny-admin/ http://localhost:4151/
-    ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
-    <Directory "/usr/lib/cgi-bin">
-        AllowOverride None
-        Options -Indexes +ExecCGI -MultiViews +SymLinksIfOwnerMatch
-        Require all granted
-    </Directory>
-    <Directory /var/www/>
-        Options +Indexes +FollowSymLinks +MultiViews
-        AllowOverride None
-        Require all granted
-    </Directory>
-    Alias /html /usr/lib/cgi-bin/html/
-    <Directory /usr/lib/cgi-bin/html/>
-        Options -Indexes +FollowSymLinks +MultiViews
-        AllowOverride None
-        Require all granted
-    </Directory>
+    </VirtualHost>
+    <IfModule mod_ssl.c>
+    <VirtualHost *:443>
+	ServerName eviction.philalegal.org
+	ServerAdmin jpyle@philalegal.org
+	SSLEngine on
+	SSLCertificateFile /etc/ssl/alphassl/wildcard.crt
+	SSLCertificateKeyFile /etc/ssl/alphassl/wildcard.pem
+	SSLProxyEngine on
+	DocumentRoot /var/www/html
+	<Proxy *>
+	  Allow from localhost
+	</Proxy>
+	RewriteEngine on
+	RewriteCond %{HTTP:Upgrade} =websocket
+	RewriteRule /shiny/(.*) ws://localhost:3838/$1 [P,L]
+	RewriteCond %{HTTP:Upgrade} !=websocket
+	RewriteRule /shiny/(.*) http://localhost:3838/$1 [P,L]
+	ProxyPass /shiny/ http://localhost:3838/
+	ProxyPassReverse /shiny/ http://localhost:3838/
+	ProxyPass /shiny-admin/ http://localhost:4151/
+	ProxyPassReverse /shiny-admin/ http://localhost:4151/
+	ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+	<Directory "/usr/lib/cgi-bin">
+	    AllowOverride None
+	    Options -Indexes +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+	    Require all granted
+	</Directory>
+	<Directory /var/www/>
+	    Options +Indexes +FollowSymLinks +MultiViews
+	    AllowOverride None
+	    Require all granted
+	</Directory>
+	Alias /html /usr/lib/cgi-bin/html/
+	<Directory /usr/lib/cgi-bin/html/>
+	    Options -Indexes +FollowSymLinks +MultiViews
+	    AllowOverride None
+	    Require all granted
+	</Directory>
 
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-    LogLevel warn
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+	LogLevel warn
 
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
-</VirtualHost>
-</IfModule>
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+    </VirtualHost>
+    </IfModule>
 
 ### `/var/www/html/index.html`
 
