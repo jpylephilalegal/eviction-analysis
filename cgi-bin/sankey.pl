@@ -20,13 +20,28 @@ if ($q->param('start') && $q->param('end')){
   else{
     $ltconditions = "lt.year>=" . $q->param('start') . " and lt.year<=" . $q->param('end');
   }
-  if ($q->param('zip')){
-    $ltconditions .= " and zip='" . $q->param('zip') . "'";
+}
+else{
+  $ltconditions = "lt.year=2017";
+}
+
+if (defined($q->param('rentstart')) && defined($q->param('rentend'))){
+  if (int($q->param('rentstart')) != 0){
+    $ltconditions .= " and ongoing_rent >= " . $q->param('rentstart');
   }
-  if ($q->param('census')){
-    $ltconditions .= " and census like '%" . $q->param('census') . "%'";
+  if (int($q->param('rentend')) != 2000){
+    $ltconditions .= " and ongoing_rent < " . $q->param('rentend');
   }
-  foreach my $key ("a", "b", "c", "publichousing", "defendant_represented", "plaintiff_represented"){
+}
+
+if ($q->param('zip')){
+  $ltconditions .= " and zip='" . $q->param('zip') . "'";
+}
+if ($q->param('census')){
+  $ltconditions .= " and census like '%" . $q->param('census') . "%'";
+}
+foreach my $key ("a", "b", "c", "publichousing", "defendant_represented", "plaintiff_represented"){
+  if (defined($q->param($key))){
     if ($q->param($key) eq "True"){
       $ltconditions .= " and $key";
     }
@@ -34,9 +49,6 @@ if ($q->param('start') && $q->param('end')){
       $ltconditions .= " and not $key";
     }
   }
-}
-else{
-  $ltconditions = "lt.year=2017";
 }
 
 print STDERR "Conditions are $ltconditions\n";
@@ -152,5 +164,11 @@ push(@{$r{links}}, {"source" => "alias writ", "target" => "alias writ served", "
 
 my $result = encode_json(\%r);
 $redis->set($redis_key => $result);
+if ($ltconditions =~ /year=2019/){
+  $redis->expire($redis_key => 60*60*24);
+}
+else{
+  $redis->expire($redis_key => 60*60*24*30);
+}
 print $q->header('text/json');
 print $result;

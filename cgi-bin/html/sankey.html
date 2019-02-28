@@ -4,9 +4,11 @@
     <meta charset="utf-8">
     <title>Landlord-tenant cases filed in 2017</title>
     <link rel="stylesheet" type="text/css" href="sankey.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   </head>
   <!-- width="100%" height="100%" viewBox="0 0 2500 700" preserveAspectRatio="xMinYMin" -->
   <body>
+    <div id="pleasewait"><p><i class="fa fa-cog fa-spin fa-3x fa-fw"></i></p><p>Please wait.</p><p>We are scanning hundreds of thousands of records.  This can take a long time.</p><p>Even if this takes a minute, the system is not broken!  It is just thinking.</p><p>Please be patient.</p></div>
     <div class="svg-container">
       <svg class="svg-content-responsive" height="100%" viewBox="0 0 2500 700" preserveAspectRatio="xMinYMin meet"></svg>
     </div>
@@ -121,7 +123,7 @@
 
 	node.append("title")
 	  .text(function(d) { return d.name + "\n" + format(d.value); });
-
+	document.getElementById('pleasewait').style.display = 'none';
       });
     </script>
   </body>
