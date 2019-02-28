@@ -56,13 +56,13 @@ Ubuntu or Debian systems.
 
 Once you have a machine up and running, install the following software?
 
-   apt-get install git libxml2-dev libxml2 udev libcurl4-openssl-dev \
-   libgdal-dev libgdal20 libudunits2-dev libudunits2-data \
-   libudunits2-0 gdebi-core libapache2-mod-proxy-html gdebi-core \
-   libudunits2-dev libudunits2-data libudunits2-0 libudunits \
-   postgresql redis
-   wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.9.923-amd64.deb
-   gdebi shiny-server-1.5.9.923-amd64.deb
+    apt-get install git libxml2-dev libxml2 udev libcurl4-openssl-dev \
+    libgdal-dev libgdal20 libudunits2-dev libudunits2-data \
+    libudunits2-0 gdebi-core libapache2-mod-proxy-html gdebi-core \
+    libudunits2-dev libudunits2-data libudunits2-0 libudunits \
+    postgresql redis
+    wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.9.923-amd64.deb
+    gdebi shiny-server-1.5.9.923-amd64.deb
 
 This will install an Apache web server, the PostgreSQL database, the R
 statistical package, and the Shiny web front end for R.
